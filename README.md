@@ -63,7 +63,7 @@ Security: JSON Web Tokens (JWT)
 
 Frontend: Plain JavaScript, HTML, and Tailwind CSS (for styling)
 
-#How to Run This Project
+# How to Run This Project
 Want to try it yourself? Here's how:
 
 Clone the project:
