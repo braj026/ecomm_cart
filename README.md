@@ -1,129 +1,100 @@
-Hello! This is a complete shopping cart application I built from scratch to practice and demonstrate my skills in backend and frontend development.
+#E-Cart: 
+Hi, thanks for checking out my e-commerce project. I made this to get better at coding and see if I could build a full website from start to finish.
 
-The main goal of this project was to build a secure, real-world application, so I focused heavily on getting the user authentication right. For this, I implemented a system using JSON Web Tokens (JWT).
+For me, the hardest part was the security. I wanted to know, how does a site remember you are logged in? I learned about something called JWT (JSON Web Tokens) and decided to try it.
 
-How the JWT Authentication Works in This Project
-I wanted to build a modern, stateless security system, which is what JWT is perfect for. Here's a simple breakdown of how it works from the moment a user logs in:
+#How I Made the Login Secure with JWT
+My simple idea for it is like a concert ticket. You show it once at the gate to get a wristband. After that, you can go anywhere inside just by showing the wristband, not the main ticket.
 
-1. User Logs In
+JWT works the same way in my app:
 
-A user enters their username and password on the login page.
+A user logs in with their name and password.
 
-2. The Server Checks and Creates the JWT
+My Java backend checks the password. If it's okay, it creates the JWT "wristband".
 
-The backend (my Spring Boot app) checks if the credentials are correct.
+The browser gets this JWT and saves it.
 
-If they are, it doesn't create a session on the server. Instead, it creates a special, digitally signed "pass" called a JWT.
+When the user visits another page (like the cart), the browser sends the JWT along.
 
-Inside this JWT, I've stored some useful, non-sensitive information like the user's username and, importantly, their roles (like ROLE_USER or ROLE_ADMIN). The token also has an expiration time.
+My backend has a security filter that checks if the JWT is real. If it is, the user can see the page.
 
-3. The Browser Stores the JWT
+The best part is, the server doesn't need to keep a list of who is logged in. It just needs to check the wristband each time. This is called "stateless" and it's a very modern way to build apps.
 
-The server sends this JWT back to the user's browser, which stores it safely in Local Storage.
+#My Rough Notes on JWT
+To really understand it, I wrote down some simple notes for myself. A JWT is just a long string with two dots in it, splitting it into three parts.
 
-4. Accessing Protected Pages
+PART1.PART2.PART3
 
-Now, whenever the user tries to access a page that requires them to be logged in (like their shopping cart, order history, or the admin page), the browser automatically attaches the JWT to the request header.
+Part 1: The Header
 
-5. The Server Verifies the JWT
+This is just some basic info, like "this is a JWT". Not very exciting.
 
-A security filter on my backend acts like a bouncer. It intercepts every request to a protected page and looks for the JWT.
+Part 2: The Payload
 
-It checks the token's signature to make sure it hasn't been tampered with and also checks that it hasn't expired.
+This is the useful part! It's where I put the user's information. For my project, I stored the username and the user's role (like ROLE_ADMIN or ROLE_USER).
 
-If the token is valid, the filter allows the request to proceed. If the user is trying to access an admin-only page, the filter also checks if the token contains the ROLE_ADMIN role. If not, access is denied.
+Important: This part is not secret. Anyone can see what's inside. That's why I would never put a password or other private data here.
 
-This whole process happens on every single protected API call, ensuring the application is secure without needing to store session information on the server.
+Part 3: The Signature
 
-A Deeper Look at JWT (My Rough Notes)
-To really understand what's going on, I thought of a JWT as being like a tamper-proof ID card that a user carries. It has three parts separated by dots (.):
+This is the magic part that makes it secure.
 
-HEADER.PAYLOAD.SIGNATURE
+The server takes the first two parts and signs them with a secret key that only the server knows.
 
-Here's my breakdown of what each part does:
+If anyone tries to change the payload (like changing their role from "USER" to "ADMIN"), the signature won't match anymore. The server will know the token is a fake and will block it. This makes the JWT "tamper-proof".
 
-The Header (The "What")
+#What This App Can Do
+🔐 Secure Login & Sign Up: Users can create an account and log in securely.
 
-This is the first part. It's just a bit of JSON that says, "Hey, this is a JWT, and here's the algorithm I used to sign it." It's just housekeeping info.
+🛍️ Product Catalog: You can see all the products for sale.
 
-The Payload (The "Who" and "What they can do")
+🛒 Shopping Cart: Add or remove items from your cart.
 
-This is the interesting part. It contains the "claims" about the user. In my project, this is where I put the username and their roles (ROLE_ADMIN, etc.).
+📜 Order History: See a list of your past purchases.
 
-This part is not encrypted, it's just encoded. Anyone can see what's inside. That's why you should never put sensitive information like passwords in the payload.
+⚙️ Admin Dashboard: A special page where an admin can add new products and delete old ones.
 
-The Signature (The "Proof of Authenticity")
-
-This is the most important part for security.
-
-To create the signature, the server takes the Header, the Payload, and a secret key that only the server knows. It mashes them all together and signs them with the algorithm from the header.
-
-When the browser sends the JWT back to the server, the server does the exact same process again. If the signature it generates matches the signature on the token, it knows two things:
-
-The token was created by this server (because only it knows the secret key).
-
-The payload has not been changed or tampered with since it was created.
-
-That's the magic of it. Because of the signature, the server can trust the information in the payload without having to store anything about the user's session. It's completely stateless.
-
-Key Features of the Application
-Full User Authentication: Secure user registration and login system.
-
-Product Catalog: Users can browse all available products.
-
-Shopping Cart: A fully functional cart where users can add and remove items.
-
-Order History: Users can view a list of their past orders.
-
-Admin Dashboard: A special page for admins to add new products (with image uploads) and delete existing ones.
-
-Role-Based Access: The application has two roles: USER and ADMIN. The admin dashboard is protected and only accessible to users with the admin role.
-
-Technologies Used
-Backend: Java, Spring Boot, Spring Security, Spring Data JPA (Hibernate)
+#Tech I Used
+Backend: Java, Spring Boot, Spring Security
 
 Database: MySQL
 
 Security: JSON Web Tokens (JWT)
 
-Frontend: Vanilla JavaScript, HTML, Tailwind CSS
+Frontend: Plain JavaScript, HTML, and Tailwind CSS (for styling)
 
-API Documentation: Swagger / OpenAPI
+#How to Run This Project
+Want to try it yourself? Here's how:
 
-How to Run This Project Locally
-If you'd like to run this project on your own machine, here are the steps:
-
-Clone the repository:
+Clone the project:
 
 git clone https://github.com/braj026/e_cart.git
 
-Set up the database:
+#Database Setup:
 
-Make sure you have MySQL installed and running.
+You need MySQL on your computer.
 
-Create a new database named ecommerce_db.
+Create a new database and name it ecommerce_db.
 
-Configure the application:
+#Update Config:
 
-Open the src/main/resources/application.properties file.
+Go to src/main/resources/application.properties.
 
-Update the spring.datasource.username and spring.datasource.password fields with your own MySQL credentials.
+Change the username and password to your MySQL login details.
 
-Run the backend:
+Run it:
 
-Open the project in your IDE (like IntelliJ or VSCode).
+Open the project in your code editor (like IntelliJ or VSCode).
 
-Run the main application file EcommerceCartAppApplication.java. The server will start on port 8080.
+Find and run the EcommerceCartAppApplication.java file.
 
-Access the frontend:
+Open your browser and go to http://localhost:8080.
 
-Open your web browser and go to http://localhost:8080.
-
-Admin Login
-To access the admin dashboard, you can use the default admin account that is created automatically when the application starts:
+#Admin Login
+You can log in as an admin to add/delete products with these details:
 
 Username: admin
 
 Password: admin123
 
-Thanks for checking out my project!
+Thanks for looking at my project! I hope my notes help you understand JWT a little better.
