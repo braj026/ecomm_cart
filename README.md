@@ -97,4 +97,4 @@ Username: admin
 
 Password: admin123
 
-Thanks for looking at my project! I hope my notes help you understand JWT a little better.
+# Thanks for looking at my project! I hope my notes help you understand JWT a little better.
