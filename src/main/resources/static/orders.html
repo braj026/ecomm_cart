@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Inter', sans-serif; } </style>
+</head>
+<body class="bg-gray-100">
+
+<!-- Navigation (same as index.html) -->
+<nav class="bg-white shadow-md">
+    <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+        <a class="text-2xl font-bold text-gray-800" href="/">QuantumStore</a>
+        <div class="flex items-center space-x-4">
+            <a href="/" class="text-gray-600 hover:text-blue-500">Home</a>
+            <a id="cart-nav" href="/cart.html" class="text-gray-600 hover:text-blue-500 hidden">Cart</a>
+            <a id="orders-nav" href="/orders.html" class="text-gray-600 hover:text-blue-500 hidden">Orders</a>
+            <a id="login-nav" href="/login.html" class="text-gray-600 hover:text-blue-500">Login</a>
+            <a id="register-nav" href="/register.html" class="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Register</a>
+            <div id="user-info" class="hidden items-center space-x-2">
+                <span id="username-display" class="font-semibold text-gray-700"></span>
+                <button id="logout-btn" class="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-600">Logout</button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="container mx-auto px-6 py-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">My Order History</h1>
+    <div id="orders-container" class="space-y-6">
+        <!-- Orders will be injected here -->
+    </div>
+    <div id="no-orders-message" class="text-center py-10 hidden">
+        <h2 class="text-2xl text-gray-500">You have no orders yet.</h2>
+        <a href="/" class="mt-4 inline-block bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600">Start Shopping</a>
+    </div>
+</main>
+<script src="app.js"></script>
+<!-- Custom Modal -->
+<div id="custom-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="bg-white rounded-lg shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full" id="custom-modal-box">
+        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div class="sm:flex sm:items-start">
+                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10" id="modal-icon-container">
+                    <!-- Icon will be injected here -->
+                    <svg id="modal-icon-info" class="h-6 w-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <svg id="modal-icon-warning" class="h-6 w-6 text-red-600 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                    </svg>
+                </div>
+                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Confirmation</h3>
+                    <div class="mt-2">
+                        <p class="text-sm text-gray-500" id="modal-message">Are you sure?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse" id="modal-buttons">
+            <!-- Buttons will be injected here -->
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
